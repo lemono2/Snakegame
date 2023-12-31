@@ -1,5 +1,6 @@
 const board = document.getElementById('game-board');
 const instructionText = document.getElementById('instruction-text');
+const logo = document.getElementById('logo');
 const score = document.getElementById('score');
 const highScoreText = document.getElementById('highScore');
 
@@ -12,14 +13,12 @@ let gameInterval;
 let gameSpeedDelay = 200;
 let gameStarted = false;
 
-
 function draw() {
   board.innerHTML = '';
   drawSnake();
   drawFood();
   updateScore();
 }
-
 
 function drawSnake() {
   snake.forEach((segment) => {
@@ -29,19 +28,16 @@ function drawSnake() {
   });
 }
 
-
 function createGameElement(tag, className) {
   const element = document.createElement(tag);
   element.className = className;
   return element;
 }
 
-
 function setPosition(element, position) {
   element.style.gridColumn = position.x;
   element.style.gridRow = position.y;
 }
-
 
 
 
@@ -81,7 +77,6 @@ function move() {
   snake.unshift(head);
 
 
-
   if (head.x === food.x && head.y === food.y) {
     food = generateFood();
     increaseSpeed();
@@ -97,9 +92,12 @@ function move() {
 }
 
 
+
+
 function startGame() {
   gameStarted = true; // Keep track of a running game
   instructionText.style.display = 'none';
+  logo.style.display = 'none';
   gameInterval = setInterval(() => {
     move();
     checkCollision();
@@ -110,8 +108,8 @@ function startGame() {
 
 function handleKeyPress(event) {
   if (
-    (!gameStarted && event.code === 'Space') ||
-    (!gameStarted && event.key === ' ')
+      (!gameStarted && event.code === 'Space') ||
+      (!gameStarted && event.key === ' ')
   ) {
     startGame();
   } else {
@@ -180,6 +178,7 @@ function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
   instructionText.style.display = 'block';
+  logo.style.display = 'block';
 }
 
 function updateHighScore() {
@@ -190,8 +189,5 @@ function updateHighScore() {
   }
   highScoreText.style.display = 'block';
 }
-
-
-
 
 
